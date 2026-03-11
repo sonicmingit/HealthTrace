@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+venv/
+.env
+
+# Project Specific - Sensitive Data
+report/*.pdf
+data/*.json
+docs/*.md
+output/*.html
+temp_*.json
+
+# OS
+.DS_Store
+Thumbs.db
