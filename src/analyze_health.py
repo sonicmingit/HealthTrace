@@ -1,8 +1,8 @@
 import json
 import os
 
-with open("../data/health_data.json", "r", encoding="utf-8") as f:
-    data = json.load(f)["healthData"]
+with open("data/health_data.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
 
 def get_risk(item, val):
     if item == "BMI":
@@ -39,9 +39,9 @@ def get_risk(item, val):
     return "正常", 0
 
 # Collect trends and risks
-latest = data[-1]["items"]
+latest = data[-1]["metrics"]
 latest_year = data[-1]["year"]
-prev = data[-2]["items"] if len(data) > 1 else {}
+prev = data[-2]["metrics"] if len(data) > 1 else {}
 
 risks = []
 for item, val in latest.items():
@@ -66,9 +66,9 @@ chart_data = {"charts": {}}
 for item in ["体重", "BMI", "血压收缩压", "空腹血糖", "总胆固醇", "甘油三酯", "尿酸", "ALT"]:
     chart_data["charts"][item] = []
     for d in data:
-        if item in d["items"]:
-            chart_data["charts"][item].append({"year": d["year"], "value": d["items"][item]})
-with open("../data/chart_data.json", "w", encoding="utf-8") as f:
+        if item in d["metrics"]:
+            chart_data["charts"][item].append({"year": d["year"], "value": d["metrics"][item]})
+with open("data/chart_data.json", "w", encoding="utf-8") as f:
     json.dump(chart_data, f, ensure_ascii=False, indent=2)
 
 report = f"""# 个人体检健康趋势分析报告
@@ -125,7 +125,7 @@ report += """
 * 如有头晕、乏力或关节不适等症状，请及时就医。
 * *本分析基于历史数据趋势总结，仅供健康生活方式管理参考，不能代替专业医疗诊断。*
 """
-with open("../docs/health_report.md", "w", encoding="utf-8") as f:
+with open("docs/health_report.md", "w", encoding="utf-8") as f:
     f.write(report)
 
-print("Report generated to ../docs/health_report.md")
+print("Report generated to docs/health_report.md")

@@ -2,9 +2,9 @@ import json
 
 def generate_dashboard():
     # Read the data
-    with open("../data/chart_data.json", "r", encoding="utf-8") as f:
+    with open("data/chart_data.json", "r", encoding="utf-8") as f:
         chart_data = json.load(f)
-    with open("../docs/health_report.md", "r", encoding="utf-8") as f:
+    with open("docs/health_report.md", "r", encoding="utf-8") as f:
         md_content = f.read()
 
     # Pass the JSON object to the frontend
@@ -246,9 +246,9 @@ def generate_dashboard():
     
     html_content = html_template.replace("_MD_CONTENT_INJECT_", md_content_js).replace("_CHART_DATA_INJECT_", chart_json_str)
 
-    with open("../output/dashboard.html", "w", encoding="utf-8") as f:
+    with open("output/dashboard.html", "w", encoding="utf-8") as f:
         f.write(html_content)
-    print("Dashboard generated: ../output/dashboard.html")
+    print("Dashboard generated: output/dashboard.html")
 
 if __name__ == "__main__":
     generate_dashboard()
